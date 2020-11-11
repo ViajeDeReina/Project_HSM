@@ -1,0 +1,137 @@
+/* dashboard screen */
+#dashboard {
+    display: grid;
+    padding: 15px;
+    grid-gap: 15px;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-flow: column;
+    grid-template-areas:
+      "title title"
+      "hsm tamper"
+      "graph1 graph2"
+      "recenterror recenterror"
+}
+  
+@media (max-width: 500px) {
+  #dashboard {
+      grid-template-columns: 1fr;
+      grid-auto-flow: column;
+      grid-template-areas:
+        "title"
+        "hsm"
+        "graph1"
+        "graph2"
+        "recenterror"
+        "tamper"
+    }
+}
+  
+/* Each items */
+.article {
+  background: white;
+  color: rgb(2, 48, 71);
+  padding: 15px;
+  box-shadow: 0 0 4px  rgba(0,0,0,0.2);
+}
+  
+.subtitle {
+  grid-area: title;
+}
+  
+.hsm {
+  grid-area: hsm;
+}
+
+.graph1 {
+  grid-area: graph1;
+  display: grid;
+}
+  
+.graph2 {
+  grid-area: graph2;
+  display: grid;
+}
+
+/* HSM STAT */
+.hsmstattable {
+  width: 100%;
+  border: 0;
+  margin: 0;
+  text-align: left;
+}
+
+#hsmstatemoji {
+  font-size: 30px;
+}
+
+#hsmstattxt {
+  font-size : 20px;
+  font-weight: bold;
+}
+
+/* TAMPER STAT */
+
+.tamper {
+  grid-area: tamper;
+}
+
+.tampertable {
+  width: 100%;
+  border: 0;
+  margin: 0;
+  text-align: left;
+}
+
+#tamperemoji {
+  font-size: 30px;
+}
+
+#tampertxt {
+  font-size : 20px;
+  font-weight: bold;
+}
+
+/* RECENT PROBLEMS */
+.recenterror {
+  grid-area: recenterror;
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  grid-auto-flow: column;
+  grid-template-areas:
+    "stattitle stattitle"
+    "emoji statname"
+    "emoji stattime"
+    "emoji statdetail"
+}
+
+#stattitle {
+  grid-area: stattitle;
+  padding-bottom: 15px;
+}
+#emoji {
+  grid-area: emoji;
+  font-size: 70px;
+  padding: 20px;
+  align-items: center;
+  justify-items: center;
+}
+#statname {
+  grid-area: statname;
+  padding: 0;
+  margin: 0;
+  justify-items: end;
+  font-weight: bold;
+}
+
+#stattime {
+  grid-area: stattime;
+  padding: 0;
+  margin: 0;
+  justify-items: start;
+}
+
+#statdetail {
+  grid-area: statdetail;
+  justify-items: start;
+  padding-top: 10px;
+}

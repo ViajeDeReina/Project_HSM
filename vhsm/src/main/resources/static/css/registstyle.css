@@ -1,0 +1,47 @@
+* {
+    font-family: 'Nanum Gothic Coding', monospace;
+}
+
+table {
+    font-size: 13px;
+    width: 100%;
+    text-align: left;
+}
+
+td {
+    height: 30px;
+    vertical-align: top;
+}
+
+#pwcheck2 {
+    height: 50px;
+}
+input {
+    width: 200px;
+}
+
+#use {
+    width: 30px;
+}
+
+.tablebutton {
+    background: rgb(33,158,188);
+    color: white;
+    border: none;
+    width: 100px;
+    height: 25px;
+}
+
+#register {
+    position: left;
+}
+
+.tablecontainer {
+    background: white;
+    padding: 15px;
+}
+
+#pwcomment {
+    color: red;
+    font-size: 13px;
+}

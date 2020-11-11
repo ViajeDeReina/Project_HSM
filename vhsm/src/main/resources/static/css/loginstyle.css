@@ -1,0 +1,60 @@
+a:link {text-decoration: none;}
+a:visited {text-decoration: none;}
+a:hover {text-decoration: none;}
+
+* {
+    font-family: 'Nanum Gothic Coding', monospace;
+}
+
+body {
+  background: rgb(238, 247, 251);
+}
+
+.container {
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  margin: 0;
+  padding-top: 10%;
+}
+
+.login {
+  display: grid;
+  grid-template-rows: repeat(auto-fit, 3);
+  justify-items: center;
+  align-items: center;
+  text-align: center;
+  width: 350px;
+  height: 200px;
+  margin: 0;
+  padding: 30px;
+  background: none;
+  border: 15px solid rgb(33,158,188);
+  color: rgb(2, 48, 71);
+}
+
+.idpw {
+  text-align: left;
+  vertical-align: center;
+  width: 270px;
+}
+
+input {
+  width: 170px;
+}
+
+.login_button {
+  text-align: center;
+  width: 200px;
+  height: 40px;
+  border: none;
+  padding: 10px;
+  margin: auto;
+  background-color: rgb(33, 158, 188);
+  vertical-align: middle;
+  color: white;
+}
+.login_button:hover {
+  background-color: rgb(255, 183, 3);
+  color: rgb(2, 48, 71);
+}
