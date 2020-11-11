@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="snmp4j-3.4.2">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../../../../Program Files (x86)/MySQL/Connector J 8.0/mysql-connector-java-8.0.21.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../../snmp/snmp4j-2.8.4/dist/snmp4j-2.8.4.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
