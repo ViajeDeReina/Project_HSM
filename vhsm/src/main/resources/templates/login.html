@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<!-- 세로 정렬 위치 가운데 relative 될 수 있게 수정할 것-->
+<html xmlns:th="http://www.w3.org/1999/xhtml"> <!-- LOG IN Page-->
+ <head>
+   <meta name="viewport" charset="utf-8" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" href="/css/loginstyle.css">
+   <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap" rel="stylesheet">
+   <title>HSM 장비 모니터링 시스템 관리자 로그인</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="login">
+        <h3><b>HSM 모니터링 시스템 로그인</b></h3>
+        <form action="/" method="post">
+          <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+          <table class="idpw">
+            <tr>
+              <td>ID</td>
+              <td><input name="user_id" type="text"></td>
+            </tr>
+            <tr>
+              <td>Password</td>
+              <td><input type="password" name="password"></td>
+            </tr>
+          </table>
+          <br>
+          <br>
+          <button class="login_button" type="submit"><b>Sign In</b></button>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

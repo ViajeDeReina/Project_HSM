@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<!-- Home : DashBoard-->
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+  <head>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+    <link rel="stylesheet" href="/css/mainstyle.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="/css/dashboardstyle.css" type="text/css" media="screen">
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap" rel="stylesheet">
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="refresh" content="5">
+    <title>HSM 장비 모니터링 시스템</title>
+ </head>
+ <body>
+  <div class="header">
+    <h4>HSM Monitoring System</h4>
+  </div>
+  <div class="subheader">
+    <div class="clock" id="clock"><script src = "/js/clock.js"></script></div>
+    <div class="headbar2">
+      <!-- logout button-->
+      <form th:action="@{/logout}" method="POST">
+        사용자 <span th:text="${user_id}"></span> |
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+        <button id="logout" type="submit">로그아웃</button>
+      </form>
+    </div>
+  </div>
+  <section>
+    <div class="nav">
+      <h4>메뉴</h4>
+      <ul>
+        <li>
+          <a class="navmenu" href="/index">
+            <img src="/imgs/dashboard_white.png" class="img-org" width=30 />
+            <img src="/imgs/dashboard_black.png" class="img-top" width=30 />
+            <b>대시보드</b>
+          </a>
+        </li>
+        <li>
+          <a class="navmenu" href="/systemlog">
+            <img src="/imgs/syslog_white.png" class="img-org" width=27 />
+            <img src="/imgs/syslog_black.png" class="img-top" width=27 />
+            <b>시스템 로그</b>
+          </a>
+        </li>
+        <li>
+          <a class="navmenu" href="/infohsm">
+            <img src="/imgs/info_white.png" class="img-org" width=30 />
+            <img src="/imgs/info_black.png" class="img-top" width=30 />
+            <b>HSM 정보</b>
+          </a>
+        </li>
+        <li>
+          <a class="navmenu" href="/infouser">
+            <img src="/imgs/admin_white.png" class="img-org" width=30 />
+            <img src="/imgs/admin_black.png" class="img-top" width=30 />
+            <b>시스템 관리자</b>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="board" id="dashboard">
+      <h3 class="subtitle">HSM 상태 모니터링 대시보드</h3>
+      <div class="article hsm">
+        <table class="hsmstattable">
+          <tr>
+            <td rowspan="2" style="width:130px">HSM 상태</td>
+            <td><span id="hsmstatemoji"></span><span th:text="${mode}" id="hsmstattxt"></span></td>
+            <!-- {mode} 자리에 HSM 상태 정보가 들어가야함 ! -->
+          </tr>
+          <tr>
+            <td><span id="hsmstatdetail"></span></td>
+          </tr>
+        </table>
+      </div>
+      <div class="article tamper">
+        <table class="tampertable">
+          <tr>
+            <td rowspan="2" style="width:130px">이상 상태 감지</td>
+            <td><span id="tamperemoji"></span> <span th:text="${temper}" id="tampertxt"></span></td>
+            <!-- {temper} 자리에 오류여부가 들어감 Ok, Temper, Unknown 3가지 -->
+          </tr>
+          <tr>
+            <td><span th:text="${temper_cause}"></span><span id="tamperdetail"></span></td>
+          </tr>
+        </table>
+      </div>
+      <div class="article graph1">
+        CPU 사용량 (%)<br>
+        <br>
+        <canvas id="myChart1" width="450" height="300"></canvas>
+          <script th:inline="javascript">
+            var ctx = document.getElementById('myChart1');
+            /*<![CDATA[*/
+            var x_data = [[${x_data}]];
+            var y_data = [[${y_data}]];
+            /*]]>*/
+
+            var myChart = new Chart(ctx, {
+                type: "line",
+                data: {
+                  labels: x_data,
+                  datasets: [{
+                    data: y_data,
+                    backgroundColor: 'rgba(247, 137, 147, 0.2)',
+                    borderColor: 'rgba(247, 137, 147, 1)',
+                    borderWidth: 1
+                  }]
+                },
+                options: {
+                  responsive: true,
+                  animation: {
+                    duration: 0
+                  },
+                  legend: {
+                    display: false
+                  },
+                  scales: {
+                    yAxes: [{
+                      ticks: {
+                        beginAtZero: true,
+                        max: 100
+                      }
+                    }]
+                  },
+                }
+            });
+          </script>
+      </div>
+      <div class="article graph2">
+        5초당 거래량<br>
+        <br>
+        <canvas id="myChart2" width="450" height="300"></canvas>
+        <script th:inline="javascript">
+          var ctx = document.getElementById('myChart2');
+          /*<![CDATA[*/
+            var x_data = [[${x_data}]];
+            var transac_data = [[${transac_data}]];
+            /*]]>*/
+          var myChart = new Chart(ctx, {
+              type: 'bar',
+              data: {
+                  labels: x_data,
+                  datasets: [{
+                    data: transac_data,
+                    backgroundColor: 'rgba(247, 137, 147, 0.2)',
+                    borderColor: 'rgba(247, 137, 147, 1)',
+                    borderWidth: 1
+                  }]
+              },
+              options: {
+                responsive: true,
+                animation: {
+                    duration: 0
+                },
+                legend: {
+                    display: false
+                },
+                scales: {
+                  yAxes: [{
+                    ticks: {
+                      beginAtZero: true
+                    }
+                  }]
+                },
+              }
+          });
+        </script>
+      </div>
+      <div class="article recenterror">
+        <div id="stattitle">최근 시스템 문제 발생 분석<br></div>
+        <div class="emoji" id="emoji"></div>
+        <div th:text="${statname}" class="statname" id="statname">SecurityProcessorWatchdog</div>
+        <div th:text="${stattime}" class="stattime" id="stattime">발생 일시 : {yyyy-mm-dd hh:mm:ss}</div>
+        <div class="statdetail" id="statdetail"></div>
+      </div>
+      <script src="/js/statuscheck.js"></script>
+    </div>
+  </section>
+ </body>
+</html>

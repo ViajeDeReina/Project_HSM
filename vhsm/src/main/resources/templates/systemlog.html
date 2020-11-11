@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml"> <!-- System Log | data source from HSM -->
+  <head>
+    <link rel="stylesheet" href="/css/mainstyle.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="/css/tablestyle.css" type="text/css" media="screen">
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap" rel="stylesheet">
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1">
+    <title>HSM 장비 모니터링 시스템</title>
+ </head>
+ <body>
+  <div class="header">
+    <h4>HSM Monitoring System</h4>
+  </div>
+  <div class="subheader">
+    <div class="clock" id="clock"><script src = "/js/clock.js"></script></div>
+    <div class="headbar2">
+      <!-- logout button-->
+      <form th:action="@{/logout}" method="POST">
+        사용자 <span th:text="${user_id}"></span> |
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+        <button id="logout" type="submit">로그아웃</button>
+      </form>
+    </div>
+  </div>
+  <section>
+    <div class="nav">
+      <h4>메뉴</h4>
+      <ul>
+        <li>
+          <a class="navmenu" href="/index">
+            <img src="/imgs/dashboard_white.png" class="img-org" width=30 />
+            <img src="/imgs/dashboard_black.png" class="img-top" width=30 />
+            <b>대시보드</b>
+          </a>
+        </li>
+        <li>
+          <a class="navmenu" href="/systemlog">
+            <img src="/imgs/syslog_white.png" class="img-org" width=27 />
+            <img src="/imgs/syslog_black.png" class="img-top" width=27 />
+            <b>시스템 로그</b>
+          </a>
+        </li>
+        <li>
+          <a class="navmenu" href="/infohsm">
+            <img src="/imgs/info_white.png" class="img-org" width=30 />
+            <img src="/imgs/info_black.png" class="img-top" width=30 />
+            <b>HSM 정보</b>
+          </a>
+        </li>
+        <li>
+          <a class="navmenu" href="/infouser">
+            <img src="/imgs/admin_white.png" class="img-org" width=30 />
+            <img src="/imgs/admin_black.png" class="img-top" width=30 />
+            <b>시스템 관리자</b>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="board" id="log">
+      <h4>시스템 로그</h4>
+        <div class="searchbar">
+          <form action="./systemlog">
+            <table class="searchform">
+              <tr>
+                <td><label for="hsmtype">HSM 유형 </label><input type="text" id="hsmtype" name="hsmtype"></td>
+                <td><label for="hsmip">HSM IP </label><input type="text" id="hsmip" name="hsmip"></td>
+                <td><label for="rdate">수신 일자 </label><input type="date" id="rdate" name="rdate"></td>
+                <td><button type="submit" class="tablebutton">조회</button></td>
+              </tr>
+            </table>
+          </form>
+        </div>
+        <div class="tablecontainer">
+          <form role="form" th:action="@{/systemlog}" method="get">
+            <!-- form 안에 아마 이게 들어가야 할 것 같은데 th:action="@{/systemlog}" th:object="${} method="post"
+            select 안에도 th:field="*{logcounts}" 부분 들어가야 할듯.-->
+            <select name="logcounts" id="logcounts" class="logcounts">
+              <!--<option value="30">30</option>
+              <option value="50" selected>50</option>
+              <option value="100">100</option>
+              <option value="200">200</option>
+              -->
+              <option th:value="30" th:text="30"></option>
+              <option th:value="50" th:text="50" selected></option>
+              <option th:value="100" th:text="100"></option>
+              <option th:value="200" th:text="200"></option>
+
+            </select>
+            <label for="logcounts" id="logcountlabel">개씩 보기</label>
+            <button type="submit" id="logcountbutton">확인</button>
+          </form>
+          <br>
+          <table id="logtable">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>HSM 유형</th>
+                <th>HSM IP</th>
+                <th>모드</th>
+                <th>상태</th>
+                <th>CPU 사용률 (%)</th>
+                <th>초당 명령처리건수</th>
+                <th>메시지</th>
+                <th>일시</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="Hsmlog: ${hsmlog}">
+                <td th:text="${Hsmlog.id}"></td>
+                <td th:text="${Hsmlog.type}"></td>
+                <td th:text="${Hsmlog.ip}"></td>
+                <td th:text="${Hsmlog.mode}"></td>
+                <td th:text="${Hsmlog.temper}"></td>
+                <td th:text="${Hsmlog.cpu_usage}"></td>
+                <td th:text="${Hsmlog.transac}"></td>
+                <td th:text="${Hsmlog.temper_cause}"></td>
+                <td th:text="${Hsmlog.sys_date}"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+    </div>
+  </section>
+ </body>
+</html>
