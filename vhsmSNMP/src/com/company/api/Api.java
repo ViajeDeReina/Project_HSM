@@ -12,7 +12,7 @@ import java.net.InetAddress;
 
 public class Api {
     protected final int Port = 161;
-    public static final String IP = "192.168.30.59";
+    public static final String IP = "111.222.333.444";//This is not real IP address
     protected final PDU pdu = new PDU();
     protected final CommunityTarget target = new CommunityTarget();
     protected final UdpAddress targetAddress = new UdpAddress();
